@@ -1,0 +1,1082 @@
+<div class="bg">
+  <div class="container">
+    <h2 class="headline text-center" style="color:white">Welcome To Hans Matrimony</h2>
+    <h6 class="text-center" style="color:white">Let's start your partner search with this sign up</h6>
+    <mat-horizontal-stepper class="stepper" labelPosition="bottom" #stepper linear>
+      <ng-template matStepperIcon="edit">
+        <mat-icon>done</mat-icon>
+      </ng-template>
+
+      <!-- Step 1 -->
+      <mat-step [completed]="isCompleted1" [editable]="false">
+        <ng-template matStepLabel id="labels">Account Details</ng-template>
+        <br>
+        <div class="row top">
+          <div class="col-md-4 text-center info" *ngIf="Advertise">
+            <h3>Why Us?</h3>
+            <img class="img-fluid" src="../../assets/NWicons-06.webp" style="height:3rem;margin-bottom:0.5rem">
+            <br>
+            <p>Offline Verification at temples</p>
+            <img class="img-fluid" src="../../assets/whatsappred.webp" style="height:3rem;margin-bottom:0.5rem">
+            <br>
+            <p>Find Matches on Whatsapp</p>
+            <img class="img-fluid" src="../../assets/icons-09.webp" style="height:3rem;margin-bottom:0.5rem">
+            <br>
+            <p>100% Authentic Profiles</p>
+            <img class="img-fluid" src="../../assets/icons-07.webp" style="height:3rem;margin-bottom:0.5rem">
+            <br>
+            <p>Largest Matchmaking Network</p>
+            <br>
+          </div>
+          <div class="col-md-8">
+            <div class="row">
+              <div class="col heading">Account Details</div>
+              <div class="col ml-auto text-right">Mandatory<sup>*</sup></div>
+            </div>
+            <hr />
+            <form [formGroup]="AccountDetails">
+              <div class="row">
+                <div class="col-md-12">
+                  <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Your Email</mat-label>
+                    <input matInput formControlName="email" required>
+                    <mat-hint align="end">We do not spam</mat-hint>
+                    <mat-error *ngIf="AccountDetails.get('email').hasError('email') && !AccountDetails.get('email').hasError('required')">
+                      Please enter a valid email address
+                    </mat-error>
+                    <mat-error *ngIf="AccountDetails.get('email').hasError('required')">
+                      Email is required
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-12">
+                  <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Password</mat-label>
+                    <input type="password" matInput formControlName="password" required>
+                    <mat-hint align="end">Do not share it with anyone</mat-hint>
+                    <mat-error *ngIf="AccountDetails.get('password').hasError('required')">
+                      Password is required
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Create Profile For</mat-label>
+                    <select matNativeControl  formControlName="create" required name="car">
+                      <option *ngFor="let  option of createProfile" [value]="option">
+                        {{option}}
+                      </option>
+                    </select>
+                    <mat-error *ngIf="AccountDetails.get('create').hasError('required') && AccountDetails.controls['create'].touched ">
+                      Please Choose A profile
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Gender</mat-label>
+                    <select matNativeControl  formControlName="gender" required name="gender">
+                        <option *ngFor="let  option of Gender" [value]="option">
+                          {{option}}
+                        </option>
+                      </select>
+                    <mat-error *ngIf="AccountDetails.get('gender').hasError('required') && AccountDetails.controls['gender'].touched ">
+                      Please Choose Gender
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row ">
+                <div class="col-md-12">
+                  <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Full name</mat-label>
+                    <input type="text" matInput formControlName="fullname" required>
+                    <mat-error *ngIf="!AccountDetails.controls['fullname'].valid && AccountDetails.get('fullname').touched && !AccountDetails.get('fullname').hasError('required')">
+                      Please Enter valid Name
+                    </mat-error>
+                    <mat-error *ngIf="AccountDetails.get('fullname').hasError('required')">
+                      Please Enter Full name.
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-12">
+                  <mat-form-field class="full-width" appearance="outline">
+                      <mat-label>Date of Birth</mat-label>
+                    <input id="birthDate" max="10" placeholder="Choose a day"  matInput [matDatepicker]="picker1" formControlName="Date" (ngModelChange)="calculateAge($event)">
+                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                    <mat-datepicker #picker1 startView="year" [startAt]="startDate" disabled="false"></mat-datepicker>
+                    <mat-hint align="end">Should Be more than 18 Years old.</mat-hint>
+                    <mat-error *ngIf="AccountDetails.get('Date').hasError('required')">
+                      Please Enter Date of Birth.
+                    </mat-error>
+                  </mat-form-field>
+                  <!-- <mat-error *ngIf="!birthdayValid">
+                          Should Be more than 18 Years old and less than 40 Years.
+                        </mat-error> -->
+                </div>
+                  <div class="col-md-12">
+                    <mat-form-field class="full-width" appearance="outline">
+                        <mat-label>Time of Birth</mat-label>
+                      <input matInput id="birthTime" type="time" placeholder="Choose a time" formControlName="birth_time">
+                      <mat-hint align="end">Time should be in 24 hrs format.</mat-hint>
+                      <!-- <mat-timepicker-toggle matSuffix [for]="pickerTime"></mat-timepicker-toggle>
+                      <mat-timepicker color="primary"   #pickerTime ></mat-timepicker>
+                      <mat-error *ngIf="AccountDetails.get('birth_time').hasError('required') && AccountDetails.controls['birth_time'].touched ">
+                          Please Select Your birth time.
+                      </mat-error> -->
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-12">
+                    <mat-form-field class="full-width" appearance="outline">
+                        <mat-label>Birth Place</mat-label>
+                        <input type="text" matInput formControlName="birth_place" >
+                      <mat-error *ngIf="AccountDetails.get('birth_place').hasError('required') && AccountDetails.controls['birth_place'].touched ">
+                        Please Enter your birth place
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+
+              </div>
+                  <div class="row">
+                      <div class="col-md-12">
+                        <mat-form-field class="full-width" appearance="outline">
+                          <mat-label>Whatsapp Number (+91)</mat-label>
+                          <input type="tel" matInput formControlName="whatsappNumber" required>
+                          <mat-error *ngIf="(AccountDetails.get('whatsappNumber').hasError('required') && AccountDetails.controls['whatsappNumber'].touched) || (AccountDetails.get('whatsappNumber').hasError('required'))">Please
+                            Enter Whatsapp Number</mat-error>
+                          <mat-error class="error" *ngIf="AccountDetails.get('whatsappNumber').hasError('pattern')">Numbers
+                            Only</mat-error>
+                          <mat-error class="error" *ngIf="!AccountDetails.get('whatsappNumber').hasError('pattern') && !AccountDetails.get('whatsappNumber').hasError('required') && !AccountDetails.controls['whatsappNumber'].valid && AccountDetails.get('whatsappNumber').touched">Invalid
+                            Phone Number</mat-error>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                
+                <div class="row">
+                    <div class="col-md-12">
+                      <mat-form-field class="full-width" appearance="outline">
+                        <mat-label>Phone Number for OTP (+91)</mat-label>
+                        <input type="tel" matInput formControlName="phoneNumber" required>
+                        <mat-error *ngIf="(AccountDetails.get('phoneNumber').hasError('required') && AccountDetails.controls['phoneNumber'].touched) || (AccountDetails.get('phoneNumber').hasError('required'))">Please
+                          Enter Phone Number</mat-error>
+                        <mat-error class="error" *ngIf="AccountDetails.get('phoneNumber').hasError('pattern')">Numbers
+                          Only</mat-error>
+                        <mat-error class="error" *ngIf="!AccountDetails.get('phoneNumber').hasError('pattern') && !AccountDetails.get('phoneNumber').hasError('required') && !AccountDetails.controls['phoneNumber'].valid && AccountDetails.get('phoneNumber').touched">Invalid
+                          Phone Number</mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+              <button type="button" mat-flat-button class="pull-right" color="warn" (click)="checkExist()"  [disabled]="!AccountDetails.valid || !birthdayValid"
+                >Register
+                Me</button>
+
+                <!-- <button type="button" mat-flat-button class="pull-right" color="warn" (click)="openPhotoDialog(photoModal)">Register Me</button> -->
+
+  
+            </form>
+            <br><br>
+            <p class="subtitle text-center">
+              By clicking on <span class="highlight">"Register Me"</span>, you confirm that <br />you accept the <a
+                href="#"><span class="highlight">Terms of Use</span></a> and <a href="#"><span class="highlight">Privacy
+                  Policy</span></a>
+            </p>
+          </div>
+          <div class="col-md-2"></div>
+          
+        </div>
+      </mat-step>
+
+
+
+      <!-- Step 2 -->
+      <mat-step label="Step 2" [completed]="isCompleted2">
+        <ng-template matStepLabel class="labels">Profile Details</ng-template>
+        <div class="row top">
+          <div class="col-md-4 text-center info" *ngIf="Advertise">
+            <h3>Why Us?</h3>
+            <img class="img-fluid" src="../../assets/NWicons-06.webp" style="height:3rem;margin-bottom:0.5rem">
+            <br>
+            <p>Offline Verification at temples</p>
+            <img class="img-fluid" src="../../assets/whatsappred.webp" style="height:3rem;margin-bottom:0.5rem">
+            <br>
+            <p>Find Matches on Whatsapp</p>
+            <img class="img-fluid" src="../../assets/icons-09.webp" style="height:3rem;margin-bottom:0.5rem">
+            <br>
+            <p>100% Authentic Profiles</p>
+            <img class="img-fluid" src="../../assets/icons-07.webp" style="height:3rem;margin-bottom:0.5rem">
+            <br>
+            <p>Largest Matchmaking Network</p>
+            <br>
+          </div>
+          <div class="col-md-6">
+            <div class="row">
+              <div class="col heading">Profile Details</div>
+              <div class="col ml-auto text-right">Mandatory<sup>*</sup></div>
+            </div>
+            <hr />
+            <form [formGroup]="stateForm">
+              <div class="row">
+                <div class="col-md-12">
+                  <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Mother Tongue</mat-label>
+                    <input type="text" matInput formControlName="stateGroup" required [matAutocomplete]="autoGroup">
+                    <mat-autocomplete #autoGroup="matAutocomplete">
+                      <mat-optgroup *ngFor="let group of stateGroupOptions | async" [label]="group.letter">
+                        <mat-option *ngFor="let name of group.names" [value]="name"  required>
+                          {{name}}
+                        </mat-option>
+                      </mat-optgroup>
+                    </mat-autocomplete>
+                    <mat-error *ngIf="stateForm.get('stateGroup').hasError('required') && stateForm.controls['stateGroup'].touched ">
+                      Please Provide a Mother tongue
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-12">
+                  <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Religion</mat-label>
+                    <select matNativeControl  formControlName="Religion" required name="Religion" (change)="Religion($event)">
+                        <option *ngFor="let  option of Religions" [value]="option">
+                          {{option}}
+                        </option>
+                      </select>
+                    <mat-error *ngIf="stateForm.get('Religion').hasError('required') && stateForm.controls['Religion'].touched">
+                      Please Choose a Religion
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <mat-form-field class="full-width" *ngIf="Caste" appearance="outline">
+                    <mat-label>Caste</mat-label>
+                    <input type="text" matInput formControlName="Castes" required [matAutocomplete]="caste" required  >
+                    <mat-autocomplete autoActiveFirstOption #caste="matAutocomplete">
+                        <mat-optgroup *ngFor="let group of CasteOptions | async" [label]="group.group"  >
+                            <mat-option *ngFor="let name of group.names" [value]="name" (click)="changeCaste(group.mapping_id)" required>
+                              {{name}}
+                            </mat-option>
+                          </mat-optgroup>
+                    </mat-autocomplete>
+                    <mat-error *ngIf="stateForm.get('Castes').hasError('required') && stateForm.controls['Castes'].touched">
+                      Please Choose a Caste
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-12">
+                  <mat-form-field class="full-width" *ngIf="S" appearance="outline">
+                    <mat-label>Sect</mat-label>
+                    <select matNativeControl  formControlName="Sect" required name="Sect">
+                        <option *ngFor="let  option of Sects" [value]="option">
+                          {{option}}
+                        </option>
+                      </select>
+                    <mat-error *ngIf="stateForm.get('Sect').hasError('required') && stateForm.controls['Sect'].touched">
+                      Please Choose a Section
+                    </mat-error>
+                  </mat-form-field>
+                  <mat-checkbox *ngIf="AllCastes" formControlName="Open">I am open to all castes</mat-checkbox>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <mat-form-field class="full-width" *ngIf="Mangaliks" appearance="outline">
+                    <mat-label>Manglik</mat-label>
+                    <mat-select formControlName="Mangalik" required>
+                      <mat-option *ngFor="let  option of Mangalika" [value]="option">
+                        {{option}}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="stateForm.get('Mangalik').hasError('required') && stateForm.controls['Mangalik'].touched">
+                      Please Choose an Option
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-12">
+                  <mat-form-field class="full-width" appearance="outline">
+                      <mat-label>Gotra</mat-label>
+                      <input type="text" placeholder="eg : Kashyap" matInput formControlName="gotra" >
+                    <mat-error *ngIf="stateForm.get('gotra').hasError('required') && stateForm.controls['gotra'].touched ">
+                      Please Enter gotra
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-12">
+                  <mat-form-field class="full-width" *ngIf="HoroScopes" appearance="outline">
+                    <mat-label>HoroScope</mat-label>
+                    <select matNativeControl  formControlName="HoroScope" required name="HoroScope">
+                        <option *ngFor="let  option of HoroScope" [value]="option">
+                          {{option}}
+                        </option>
+                      </select>                   
+                    <mat-error *ngIf="stateForm.get('HoroScope').hasError('required') && stateForm.controls['HoroScope'].touched">
+                      Please Choose an Option
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Martial Status</mat-label>
+                    <select matNativeControl  formControlName="MaritalStatus" required name="MaritalStatus">
+                        <option *ngFor="let  option of MaritalStaus" [value]="option">
+                          {{option}}
+                        </option>
+                      </select> 
+                    <mat-error *ngIf="stateForm.get('MaritalStatus').hasError('required') && stateForm.controls['MaritalStatus'].touched ">
+                      Please Choose a Marital Status
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-12">
+                  <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Height(Inches)</mat-label>
+                    <select matNativeControl #height  formControlName="Height" required name="Height">
+                        <option *ngFor="let option of Heights;let i = index" [value]="i">
+                          {{option}}
+                        </option>
+                      </select>
+                    <mat-error *ngIf="stateForm.get('Height').hasError('required') && stateForm.controls['Height'].touched ">
+                      Please Enter Height in Inches
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Food Preference</mat-label>
+                    <!-- <input type="text" matInput formControlName="" > -->
+                    <select matNativeControl  formControlName="food_choice1" required name="foodpreference">
+                      <option *ngFor="let  preferences of foodpreferences1" [value]="preferences">
+                        {{preferences}}
+                      </option>
+                    </select>
+                    
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                  <div class="col-md-12">
+                    <mat-form-field class="full-width" appearance="outline">
+                      <mat-label>Current City</mat-label>
+                      <input type="text" id="cityAutoComplete" matInput [matAutocomplete]="city" formControlName="Currentcity" required> 
+                      <mat-error *ngIf="stateForm.get('Currentcity').hasError('required') && stateForm.controls['Currentcity'].touched ">
+                          Please Select Your Current City.
+                        </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-12">
+                    <mat-form-field class="full-width" appearance="outline">
+                        <mat-label>Weight In Kilos</mat-label>
+                        <input type="number" matInput formControlName="Weight" >
+                      <mat-error *ngIf="stateForm.get('Weight').hasError('required') && stateForm.controls['Weight'].touched ">
+                        Please Enter Weight in Kgs
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+              <button mat-flat-button color="warn" matStepperPrevious>Back</button>
+              <button mat-flat-button color="warn"  [disabled]="!stateForm.valid" (click)="secondStep(stepper)" class="pull-right">Continue</button>
+           
+            </form>
+          </div>
+          <div class="col-md-2"></div>
+        </div>
+      </mat-step>
+
+
+
+      <!-- Step 3 -->
+      <mat-step label="Step 3" [completed]="isCompleted3">
+        <ng-template matStepLabel class="labels">Education Details</ng-template>
+        <div class="row top">
+          <div class="col-md-4 text-center info" *ngIf="Advertise">
+            <h3>Why Us?</h3>
+            <img class="img-fluid" src="../../assets/NWicons-06.webp" style="height:3rem;margin-bottom:0.5rem">
+            <br>
+            <p>Offline Verification at temples</p>
+            <img class="img-fluid" src="../../assets/whatsappred.webp" style="height:3rem;margin-bottom:0.5rem">
+            <br>
+            <p>Find Matches on Whatsapp</p>
+            <img class="img-fluid" src="../../assets/icons-09.webp" style="height:3rem;margin-bottom:0.5rem">
+            <br>
+            <p>100% Authentic Profiles</p>
+            <img class="img-fluid" src="../../assets/icons-07.webp" style="height:3rem;margin-bottom:0.5rem">
+            <br>
+            <p>Largest Matchmaking Network</p>
+            <br>
+          </div>
+          <div class="col-md-6">
+            <div class="row">
+              <div class="col heading">Education</div>
+              <div class="col ml-auto text-right">Mandatory<sup>*</sup></div>
+            </div>
+            <hr />
+            <form [formGroup]="EducationDetails">
+              <div class="row">
+                <div class="col-md-12">
+                  <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Highest Degree</mat-label>
+                    <input type="text" matInput required [matAutocomplete]="hcd" required formControlName="HighestDegree">
+                    <mat-autocomplete autoActiveFirstOption #hcd="matAutocomplete">
+                      <mat-optgroup *ngFor="let group of HigherEducation" [label]="group.group">
+                        <mat-option *ngFor="let name of group.names" [value]="name">
+                          {{name}}
+                        </mat-option>
+                      </mat-optgroup>
+                    </mat-autocomplete>              
+                    <mat-error *ngIf="EducationDetails.get('HighestDegree').hasError('required') && EducationDetails.controls['HighestDegree'].touched ">
+                      Please Choose a HighestDegree
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row ">
+                <div class="col-md-12">
+                  <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Highest Degree College (Optional)</mat-label>
+                    <input type="text" matInput formControlName="UgCollege">
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Additional Qualification Details (Optional)</mat-label>
+                    <textarea type="text" matInput formControlName="additional_qualification"></textarea>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row ">
+                <div class="col-md-12">
+                  <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Occupation</mat-label>
+                    <select matNativeControl  formControlName="Occupation" required name="Occupation">
+                        <option *ngFor="let  option of Occupation" [value]="option">
+                          {{option}}
+                        </option>
+                      </select> 
+                    <mat-error *ngIf="EducationDetails.get('Occupation').hasError('required') && EducationDetails.controls['Occupation'].touched ">
+                      Please Choose a Occupation
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Profession name</mat-label>
+                    <input type="text" matInput placeholder="IT Engineer" formControlName="profession" required name="profession">
+                    <mat-error *ngIf="EducationDetails.get('profession').hasError('required') && EducationDetails.controls['profession'].touched ">
+                      Please Choose profession
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Company name</mat-label>
+                    <input type="text" matInput placeholder="Microsft" formControlName="Company" required name="Company">
+                    <mat-error *ngIf="EducationDetails.get('Company').hasError('required') && EducationDetails.controls['Company'].touched ">
+                      Please Choose Company
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div> 
+              <div class="row">
+                <div class="col-md-12">
+                  <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Annual Income In Lakhs</mat-label>
+                    <input type="number" matInput formControlName="AnnualIncome" required name="AnnualIncome">
+                    <mat-error *ngIf="EducationDetails.get('AnnualIncome').hasError('required') && EducationDetails.controls['AnnualIncome'].touched ">
+                      Please Choose Annual Income
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <hr>
+              <h6>Here is your chance to make your profile stand out!</h6>
+              <div class="row">
+                <div class="col-md-12">
+                  <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Write About Yourself</mat-label>
+                    <textarea matInput placeholder="Write about your interests and hobbies etc" required formControlName="Yourself"></textarea>
+                    <mat-error *ngIf="EducationDetails.get('Yourself').hasError('required') && EducationDetails.controls['Yourself'].touched ">
+                      Please Write About Yourself
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <button mat-flat-button color="warn" matStepperPrevious>Back</button>
+              <button mat-flat-button color="warn" class="pull-right"  [disabled]="!EducationDetails.valid"
+                (click)="thirdStep(stepper)">Continue
+              </button>
+            </form>
+          </div>
+          <div class="col-md-2"></div>
+        </div>
+      </mat-step>
+
+
+
+      <!-- Step 4 -->
+      <mat-step label="Step 4" [completed]="isCompleted4">
+        <ng-template matStepLabel class="labels">Family Details</ng-template>
+        <div class="row top">
+          <div class="col-md-4 text-center info" *ngIf="Advertise">
+            <h3>Why Us?</h3>
+            <img class="img-fluid" src="../../assets/NWicons-06.webp" style="height:3rem;margin-bottom:0.5rem">
+            <br>
+            <p>Offline Verification at temples</p>
+            <img class="img-fluid" src="../../assets/whatsappred.webp" style="height:3rem;margin-bottom:0.5rem">
+            <br>
+            <p>Find Matches on Whatsapp</p>
+            <img class="img-fluid" src="../../assets/icons-09.webp" style="height:3rem;margin-bottom:0.5rem">
+            <br>
+            <p>100% Authentic Profiles</p>
+            <img class="img-fluid" src="../../assets/icons-07.webp" style="height:3rem;margin-bottom:0.5rem">
+            <br>
+            <p>Largest Matchmaking Network</p>
+            <br>
+          </div>
+          <div class="col-md-6">
+            <div class="row">
+              <div class="col heading">Lifestyle & Family</div>
+            </div>
+            <hr>
+            <form [formGroup]="FamilyDetails">
+              <div class="row">
+                <div class="col-md-12">
+                  <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Family Type</mat-label>
+                    <select matNativeControl  formControlName="FamilyType"  name="FamilyType">
+                        <option *ngFor="let  option of FamilyType" [value]="option">
+                          {{option}}
+                        </option>
+                      </select> 
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row ">
+                <div class="col-md-12">
+                  <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Father Status</mat-label>
+                    <select #fStatus matNativeControl formControlName="father_status"  name="father_status">
+                        <option value="Alive">
+                          Alive
+                        </option>
+                        <option value="Not Alive">
+                          Not Alive
+                        </option>
+                      </select> 
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row ">
+                <div class="col-md-12">
+                  <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Mother Status</mat-label>
+                    <select #mStatus matNativeControl formControlName="mother_status"  name="mother_status">
+                        <option value="Alive">
+                          Alive
+                        </option>
+                        <option value="Not Alive">
+                          Not Alive
+                        </option>
+                      </select> 
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row" *ngIf="fStatus.value=='Alive'">
+                <div class="col-md-12">
+                  <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Father's Occupation</mat-label>
+                    <select matNativeControl  formControlName="FatherOccupation"  name="FatherOccupation">
+                        <option *ngFor="let  option of Occupation" [value]="option">
+                          {{option}}
+                        </option>
+                      </select> 
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row " *ngIf="mStatus.value=='Alive'">
+                <div class="col-md-12">
+                  <mat-form-field class="full-width" appearance="outline">
+                      <mat-label>Mother's Occupation</mat-label>
+                      <select matNativeControl  formControlName="MotherOccupation"  name="MotherOccupation">
+                          <option *ngFor="let  option of MotherOccupation" [value]="option">
+                            {{option}}
+                          </option>
+                        </select>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Family's Income</mat-label>
+                    <input type="text" matInput placeholder="eg : 24" formControlName="family_income">lpa
+                  </mat-form-field>
+                </div></div>
+              <div class="row">
+                <div class="col-md-12">
+                  <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Married Brothers</mat-label>
+                    <select matNativeControl  formControlName="brother"  name="brother">
+                        <option *ngFor="let  option of Brother" [value]="option">
+                          {{option}}
+                        </option>
+                      </select>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                  <div class="col-md-12">
+                    <mat-form-field class="full-width" appearance="outline">
+                      <mat-label>UnMarried Brothers</mat-label>
+                      <select matNativeControl  formControlName="umbrother"  name="umbrother">
+                          <option *ngFor="let  option of Sister" [value]="option">
+                            {{option}}
+                          </option>
+                        </select>
+                    </mat-form-field>
+                  </div>
+                </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Married Sisters</mat-label>
+                    <select matNativeControl  formControlName="sister"  name="sister">
+                        <option *ngFor="let  option of Sister" [value]="option">
+                          {{option}}
+                        </option>
+                      </select>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>UnMarried Sisters</mat-label>
+                    <select matNativeControl  formControlName="umsister" required name="umsister">
+                        <option *ngFor="let  option of Sister" [value]="option">
+                          {{option}}
+                        </option>
+                      </select>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Family Living In</mat-label>
+                    <input type="text" matInput [matAutocomplete]="ste" formControlName="state">
+                    <mat-autocomplete autoActiveFirstOption #ste="matAutocomplete">
+                      <mat-option *ngFor="let option of stateo | async" [value]="option">
+                        {{option}}
+                      </mat-option>
+                    </mat-autocomplete>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Native City</mat-label>
+                    <input type="text" matInput [matAutocomplete]="city" formControlName="city">
+                    <mat-autocomplete autoActiveFirstOption #city="matAutocomplete">
+                      <mat-option *ngFor="let option of citis | async" [value]="option">
+                        {{option}}
+                      </mat-option>
+                    </mat-autocomplete>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Contact Address</mat-label>
+                    <input type="text" matInput formControlName="address">
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>House Type</mat-label>
+                    <select matNativeControl  formControlName="house_type"  name="house_type">
+                        <option value="Owned">
+                          Owned
+                        </option>
+                        <option value="Rented">
+                          Rented
+                        </option>
+                        <option value="Leased">
+                          Leased
+                        </option>
+                      </select>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>About My Family</mat-label>
+                    <textarea matInput placeholder="Write about your parents and brothers or sisters,Where do they live?What they are doing?"
+                      formControlName="about"></textarea>
+                  </mat-form-field>
+                </div>
+              </div>
+              <button mat-flat-button color="warn" matStepperPrevious>Back</button>
+              <button mat-raised-button color="warn" (click)="fourthStep(stepper)" class="pull-right">Add to My profile</button>
+            </form>
+          </div>
+          <div class="col-md-2"></div>
+        </div>
+      </mat-step>
+
+
+
+      <!-- Step 5 -->
+      <mat-step label="Step 5">
+        <ng-template matStepLabel class="labels">Photo Upload</ng-template>
+        <hr>
+        <div class="row top">
+          <div class="col-md-4 text-center info" *ngIf="Advertise">
+            <h3>Why Us?</h3>
+            <img class="img-fluid" src="../../assets/NWicons-06.webp" style="height:3rem;margin-bottom:0.5rem">
+            <br>
+            <p>Offline Verification at temples</p>
+            <img class="img-fluid" src="../../assets/whatsappred.webp" style="height:3rem;margin-bottom:0.5rem">
+            <br>
+            <p>Find Matches on Whatsapp</p>
+            <img class="img-fluid" src="../../assets/icons-09.webp" style="height:3rem;margin-bottom:0.5rem">
+            <br>
+            <p>100% Authentic Profiles</p>
+            <img class="img-fluid" src="../../assets/icons-07.webp" style="height:3rem;margin-bottom:0.5rem">
+            <br>
+            <p>Largest Matchmaking Network</p>
+            <br>
+          </div>
+          <div class="col-md-6">
+            <div class="row">
+              <div class="col heading">Upload Picture</div>
+            </div>
+            <form [formGroup]="FamilyDetails">
+                <div class="row" style="margin-top:20px">
+                    <div class="col-md-12 text-center">
+                      <p>Multiple Pictures can be Uploaded</p>
+                </div>
+                 </div>
+                <div class="row"  style="margin-top:20px;    margin-right: 20px;">
+                   <div class="col-md-12 text-center">
+                      <img [src]="fullimgURL"  height="80" width="170" *ngIf="fullimgURL">
+                      <br>
+                    <div>
+                        <input #Fullfile type="file" id="Fullfile" accept='image/*' (change)="previewFull(Fullfile.files,0)"  />
+                      <label for="Fullfile">
+                      <i class="fa fa-plus-square-o square" aria-hidden="true" *ngIf="!Fullfile.value" ></i>
+                    </label>                   
+                    </div>
+                   </div>
+                </div>
+              <div class="row"  style="margin-top:20px;    margin-right: 26px;">
+                <div class="col-4 text-center">
+                    <img [src]="imgURL"  height="80" width="170" *ngIf="imgURL">
+                    <br>
+                  <div>
+                      <input #dfile type="file" id="dfile" accept='image/*' (change)="preview(dfile.files,1)"  />
+                    <label for="dfile">
+                    <i class="fa fa-plus-square-o square" aria-hidden="true" *ngIf="!dfile.value"></i>
+                  </label>                   
+                  </div>
+                </div>
+                
+                <div class="col-4 text-center">
+                    <img [src]="frontfile"  height="80" width="170" *ngIf="frontfile">
+                    <br>
+                  <div>
+                      <input #fontfile type="file" id="fontfile" accept='image/*' (change)="previewfront(fontfile.files,2)"  />
+                    <label for="fontfile">
+                    <i class="fa fa-plus-square-o square" aria-hidden="true" *ngIf="!fontfile.value"></i>
+                  </label>                   
+                  </div>
+                </div>
+                <div class="col-4 text-center">
+                    <img [src]="BackimgURL" height="80" width="170" *ngIf="BackimgURL">
+                    <br>
+                  <div>
+                      <input #backfile type="file" id="backfile" accept='image/*' (change)="previewBack(backfile.files,3)"  />
+                    <label for="backfile">
+                    <i class="fa fa-plus-square-o square" aria-hidden="true" *ngIf="!backfile.value"></i>
+                  </label>                   
+                  </div>
+                </div>
+              </div>
+              <div sclass="row"  style="margin-top:20px">
+                  <div class="col-md-12 text-center">
+                    <button mat-raised-button color="warn" id="photoBtn" (click)="checkForPhoto()">Please Click to Upload</button>
+                  </div>
+               </div> 
+            </form>
+          </div>  
+          </div>
+          <div class="col-md-2"></div>
+      </mat-step>
+
+
+
+      <!-- Step 6 -->
+      <mat-step label="Step 6" [completed]="isCompleted5">
+        <ng-template matStepLabel class="labels">Preferences</ng-template>
+        <div class="row top preferences">
+          <div class="col-m4-3 tex-center2 info" *ngIf="Advertise">
+          <h3>Why Us?</h3>
+          <img class="img-fluid pref" src="../../assets/NWicons-06.webp" style="height:3rem;margin-bottom:0.5rem">
+          <br>
+          <p>Offline Verification at temples</p>
+          <img class="img-fluid pref" src="../../assets/whatsappred.webp" style="height:3rem;margin-bottom:0.5rem">
+          <br>
+          <p>Find Matches on Whatsapp</p>
+          <img class="img-fluid pref" src="../../assets/icons-09.webp" style="height:3rem;margin-bottom:0.5rem">
+          <br>
+          <p>100% Authentic Profiles</p>
+          <img class="img-fluid pref" src="../../assets/icons-07.webp" style="height:3rem;margin-bottom:0.5rem">
+          <br>
+          <p>Largest Matchmaking Network</p>
+          <br>
+        </div>
+          <div class="col-md-6">
+            <div class="row">
+              <div class="col heading">Preferences</div>
+              <!-- <div class="col ml-auto text-right">Mandatory<sup>*</sup></div> -->
+            </div>
+            <hr >
+            <div class="row" style="margin-top:20px">
+                <div class="col-md-12 text-center">
+                  <p>Tell Us about your preference for your match<br>We will take care While Recommending Your Profile</p>
+            </div>
+             </div>
+            <form [formGroup]="PreferencesDetails">
+              <div class="row">
+                  <div class="col-6">
+                      <mat-form-field class="full-width" appearance="outline">
+                        <mat-label>Min Age</mat-label>
+                        <input matInput type="number" [value]="minAge" formControlName="age_min">
+                      </mat-form-field>
+                    </div>
+                    <div class="col-6">
+                        <mat-form-field class="full-width" appearance="outline">
+                          <mat-label>Max Age</mat-label>
+                          <input matInput type="number" [value]="maxAge" formControlName="age_max">
+                        </mat-form-field>
+                      </div>
+              </div>
+              <div class="row">
+                  <div class="col-6">
+                      <mat-form-field class="full-width" appearance="outline">
+                        <mat-label>Min Height</mat-label>
+                        <select matNativeControl  formControlName="height_min">
+                            <option *ngFor="let  option of Heights ;let i = index" [value]="i" >
+                              {{option}}
+                            </option>
+                          </select>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-6">
+                        <mat-form-field class="full-width" appearance="outline">
+                          <mat-label>Max Height</mat-label>
+                          <select matNativeControl  formControlName="height_max">
+                              <option *ngFor="let  option of Heights;let i = index" [value]="i" >
+                                {{option}}
+                              </option>
+                            </select>
+                        </mat-form-field>
+                      </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Mother Tongue</mat-label>
+                    <input type="text" matInput required [matAutocomplete]="autoGroup" [value]="motherTongue" formControlName="mother_tongue">
+                    <mat-autocomplete #autoGroup="matAutocomplete">
+                      <mat-optgroup *ngFor="let group of stateGroupOptions | async" [label]="group.letter">
+                        <mat-option *ngFor="let name of group.names" [value]="name" >
+                          {{name}}
+                        </mat-option>
+                      </mat-optgroup>
+                    </mat-autocomplete>
+                  </mat-form-field>
+                </div>
+              </div>
+              <!-- <div class="row">
+                <div class="col-md-12">
+                  <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Caste</mat-label>
+                    <select matNativeControl  formControlName="caste" required name="Sect">
+                      <option *ngFor="let  option of castePref" [value]="option">
+                        {{option}}
+                      </option>
+                    </select>               
+                  </mat-form-field>
+                </div>
+              </div> -->
+              <div class="row">
+                <div class="col-md-12">
+                  <!-- <mat-form-field class="full-width" appearance="outline"> -->
+                    <mat-label>Caste</mat-label>
+                  <angular2-multiselect [data]="dropdownList" [(ngModel)]="selectedItems" 
+                  [settings]="dropdownSettings" 
+                  (onSelect)="onItemSelect($event)" 
+                        (onDeSelect)="OnItemDeSelect($event)"
+                        (onSelectAll)="onSelectAll($event)"
+                        (onDeSelectAll)="onDeSelectAll($event)" formControlName="caste"></angular2-multiselect>
+                        
+                        
+                        <!-- </mat-form-field> -->
+                      </div>
+                    </div><br><br>
+                    <img src="https://loading.io/spinners/rolling/lg.curve-bars-loading-indicator.gif" id="loader">
+                    <div class="row">
+                      <div class="col-md-12">
+                  <mat-form-field class="full-width"  appearance="outline">
+                    <mat-label>Manglik</mat-label>
+                    <select matNativeControl name="MaritalStatus" formControlName="manglik">
+                      <option *ngFor="let  option of prefManglik" [value]="option">
+                        {{option}}
+                      </option>
+                    </select> 
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Marital Status</mat-label>
+                    <select matNativeControl name="MaritalStatus" [value]="maritalStatus" formControlName="marital_status">
+                        <option *ngFor="let  option of MaritalStaus" [value]="option">
+                          {{option}}
+                        </option>
+                      </select> 
+                   
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                  <div class="col-md-12">
+                      <mat-form-field class="full-width" appearance="outline">
+                        <mat-label>Food Choice</mat-label>
+                        <select matNativeControl name="foodpreference" formControlName="food_choice">
+                          <option *ngFor="let  preferences of foodpreferences" [value]="preferences">
+                            {{preferences}}
+                          </option>
+                        </select>
+                      </mat-form-field>
+                    </div>
+              </div>
+              <!-- <div class="row">
+                  <div class="col-md-12">
+                      <mat-form-field class="full-width" appearance="outline">
+                        <mat-label>Working Status</mat-label>
+                        <input matInput type="text" value="Doesn't matter" formControlName="working">
+                      </mat-form-field>
+                    </div>
+              </div> -->
+              <div class="row ">
+                <div class="col-md-12">
+                  <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Working Status</mat-label>
+                    <select matNativeControl  formControlName="working" required name="working">
+                        <option *ngFor="let  option of Working" [value]="option">
+                          {{option}}
+                        </option>
+                      </select> 
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                  <div class="col-md-12">
+                    <mat-form-field appearance="outline" class="full-width">
+                      <mat-label>About your Preferences</mat-label>
+                      <textarea matInput placeholder="Write about your preferences" formControlName="description"></textarea>
+                    </mat-form-field>
+                  </div>
+                </div>
+              <button mat-flat-button color="warn" matStepperPrevious>Back</button>
+              <button mat-flat-button color="warn" matStepperNext  (click)="sixthStep(stepper)" class="pull-right">Continue</button>
+           
+            </form>
+          </div>
+
+          <div class="col-md-2"></div>
+        </div>
+      </mat-step>
+  
+    </mat-horizontal-stepper>
+  </div>
+</div>
+
+<!-- Modals -->
+<ng-template #otpModal let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <p class="verifyHeader">Verify Mobile Number</p>
+    <button type="button" style="outline: none" class="close" aria-label="Close" (click)="Cross_click()">X
+    </button>
+  </div>
+  <div class="modal-body">
+    <p (click)="makeItTrue()" style="margin-left: 90%;
+    margin-top: -82px;
+    cursor: pointer;" *ngIf="changeNumber"><i class="fa fa-long-arrow-alt-left"></i>Back</p>
+    <div *ngIf="!changeNumber">
+      <p style="text-align: center;color:rgb(153, 114, 114);font-size:16px">We sent you a code via sms to your mobile number.</p>
+      <p style="text-align: center;color:rgb(153, 114, 114);font-size:16px">Please enter the code to verify</p>
+
+     
+      <input max=1 *ngFor="let i of [1,2,3,4]" class="enterOtp" (keyup)="changePlaces($event)" [id]="'enterOTP'+i">
+      <!-- <input max="1" class="enterOtp" (keyup)="changePlaces()" id="enterOTP2">
+      <input max="1" class="enterOtp" (keyup)="changePlaces()" id="enterOTP3">
+      <input max="1" class="enterOtp" (keyup)="changePlaces()" id="enterOTP4"> -->
+      <br><br>
+
+      <span (click)="makeItTrue()" class="changeNumber"><u>Change Number</u></span><br>
+      <div class="box">
+        <button mat-raised-button style="font-size: 20px;    position: relative;
+        left: 23%;
+        margin-top: 12px;
+        margin-bottom: 14px;"  color="warn" (click)="verifyOtp()">Verify</button><br>
+        <span class="didntgetCode" style="color:brown;font-size: 16px">Didn't get code?</span>&nbsp;&nbsp;
+        <button mat-raised-button color="warn" class="resendOtp" (click)="resendOtp()">Resend OTP</button>
+    </div>
+  </div>
+    <div *ngIf="changeNumber">
+      
+      <input id="changeContact" [value]="this.AccountDetails.value.phoneNumber" (keyup)="numberChange($event)">
+      <button mat-raised-button class="submitButton" color="warn" (click)="sendOtp()">Submit</button>
+      </div>
+  </div>
+
+</ng-template>
+
+<ng-template #photoModal let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <button type="button" style="outline: none" class="close" aria-label="Close" (click)="Cross_click()">X
+      </button>
+    </div>
+    <div class="modal-body">
+        <p class="verifyHeader" style="font-size: 20px">You haven't uploaded any photo</p>
+      <!-- <button mat-raised-button style="position: relative;top: 74px;
+      left: 31%;" class="submitButton1" color="warn" (click)="Cross_click()">Choose photo</button>
+      <button mat-raised-button class="submitButton1" color="warn" (click)="fifthStep(stepper)">Continue without Uploading</button>-->
+      <button mat-raised-button color="accent" mat-btn (click)="fifthStep(stepper)">Continue without Uploading</button> 
+      <button style="float:right" mat-raised-button color="warn" (click)="Cross_click()">Choose photo</button>
+    </div>
+
+</ng-template>

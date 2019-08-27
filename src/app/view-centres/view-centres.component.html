@@ -1,0 +1,37 @@
+<div class="first-box">
+    <p>Head Office</p>
+    <hr>
+    <table>
+      <tr>
+        <td><i class="fa fa-home" aria-hidden="true"></i></td>
+        <td><i class="fa fa-phone" aria-hidden="true"></i>
+        </td>
+        <td><i class="fa fa-envelope-o" aria-hidden="true"></i>
+        </td>
+      </tr>
+      <tr>
+        <td>H-18 Bali Nagar</td>
+        <td>9818215182</td>
+        <td>matches@hansmatrimony.com</td>
+      </tr>
+    </table>
+ 
+</div>
+<div class="second-box">
+  <p>Subsidiary offices</p>
+  <hr>
+  <table>
+    <div class="sub" *ngFor="let centre of centres;let i=index">
+      <tr><th>{{i+1}}. {{ centre.name }}</th><th></th></tr>
+    <tr>
+      <td>Phone No.</td>
+      <td>{{ centre.mobile}}</td>
+    </tr>
+    <tr>
+        <td>Representatives</td>
+        <td>{{ centre.representatives}}</td>
+      </tr>
+    <hr>
+  </div>
+    </table>
+</div>
