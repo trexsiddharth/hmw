@@ -22,6 +22,10 @@ lib-ngx-notification{
 .banner-img{
     height : 4rem;
 }
+.navBarTop {
+    padding-bottom: 0.2rem;
+    padding-top: 0.2rem;
+}
 
 .login{
     margin-right: 22px;
@@ -33,13 +37,21 @@ lib-ngx-notification{
 .follow{
     margin-left: 35%
 }
+.sizeIt {
+    font-size: 16px;
+}
 @media only screen and (max-width: 900px) {
     .footer {
         background-color: #46132B;
     }
     .fa {
         padding: 0%;
-        width: 1rem;
+        height: 0px;
+        width: 2rem !important;
+    }
+    .navBarTop {
+        padding-bottom: 0.4rem;
+        padding-top: 0.4rem;
     }
 
     .banner-img{
@@ -74,6 +86,9 @@ lib-ngx-notification{
         position: relative;
             top: 26px;
     }
+    .sizeIt {
+        font-size: 12px;
+    }
 }
 
 @media only screen and (max-width: 1024px) {
@@ -94,8 +109,6 @@ lib-ngx-notification{
         margin-top: 14%;  
         left: calc(100% - 80px);
     }
-    .sizeIt {
-        font-size: 12px;
-    }
+    
 
 }
