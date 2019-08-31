@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css?family=Montserrat");
 .back-ground{
   min-height: 25vh;
-  background: url('https://wallpapercave.com/wp/2ujUKnj.jpg') no-repeat center;
+  /* background: url('https://wallpapercave.com/wp/2ujUKnj.jpg') no-repeat center; */
   background-size: 100% 250px;
   background-position: top center;
 }
@@ -174,4 +174,89 @@ nav > div a.nav-item.nav-link:focus
   nav{
     padding: 0 45px;
   }
+}
+
+
+@media (min-width : 576px){
+  .headers{
+      border-bottom: 2px solid #d8d8d8;background-color:white
+  }
+
+  #headers-left{
+      width:50%;margin-left:0px;height:70px;
+  }
+
+  #headers-left-main{
+      display:inline-flex;margin-top:auto;margin-bottom:auto;margin-left: 15px
+  }
+
+  #logo{
+      width:50px;height:50px
+  }
+
+  .header{
+      padding: 10px;
+  }
+  #company-name{
+      font-size:1rem;margin-top:auto;margin-bottom:auto
+  }
+  .back-ground{
+     padding: 5px;
+     padding-top:0px
+  }
+  .row{
+      width: 100%;
+      padding: 0px;
+      margin:0px
+  }
+  
+  #button-div{
+      text-align: center;
+      padding: 0px
+  }
+  
+  .v-align{
+      margin-top: auto;
+      margin-bottom: auto
+  }
+  
+  p{
+      font-size: 1.1rem;
+      text-align: center;
+      margin-bottom : 0.5rem;
+  }
+  
+  .feature{
+      font-weight: bold
+  }
+  
+  .text-center{
+      margin-left: auto;
+      margin-right: auto
+  }
+
+  /* #second-main{
+      background-image: url('../../../assets/images/bgicon.png');
+  } */
+
+  h5 {
+      color: black;margin-bottom: 0px
+  }
+
+ #plan-option{
+   display:inline-flex
+ }
+
+ #option{
+  margin-top:25px;background-color:white;height: 110px
+ }
+
+ #contain{
+  display:inline-flex;width: 100%
+ }
+
+ #p{
+  font-weight:bold;color:#007BFF
+ }
+  
 }

@@ -1,25 +1,33 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../app/Services/auth.service';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-view-centres',
   templateUrl: './view-centres.component.html',
   styleUrls: ['./view-centres.component.css']
 })
+
 export class ViewCentresComponent implements OnInit {
-  centres:any=[];
-  identityNumber;
-  constructor(private _auth:AuthService, private http:HttpClient) { }
+
+  centres : any = [];
+
+  constructor(private http : HttpClient) { }
 
   ngOnInit() {
-    if(localStorage.getItem('identityNumber'))
-    this.identityNumber=localStorage.getItem('identityNumber');
+  
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    })
 
-       this._auth.getCentres(this.identityNumber).subscribe(res=>{
-         this.centres=res;
-         console.log(this.centres);
-       })
+
+    this.http.get('https://partner.hansmatrimony.com/api/viewCentres', {headers : headers}).subscribe((res:any) => {
+      this.centres = res;
+      console.log(this.centres);
+
+      var l = this.centres.length;
+      for(let i=0;i<l;i++)
+       this.centres[i].profile_photo = 'https://img.icons8.com/color/1600/circled-user-male-skin-type-1-2.png';
+    })
   }
 
 }
