@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule,CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
@@ -41,6 +41,7 @@ import { CommonModule } from '@angular/common';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { ContactedUserProfileComponent } from './contacted-user-profile/contacted-user-profile.component';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+import { OnboardingComponent } from './onboarding/onboarding.component';
 
 
 let config = new AuthServiceConfig([
@@ -68,7 +69,8 @@ export function provideConfig() {
     DashboardComponent,
     EditProfileComponent,
     ViewCentresComponent,
-    ContactedUserProfileComponent
+    ContactedUserProfileComponent,
+    OnboardingComponent
   ],
   imports: [
     AgmCoreModule.forRoot({
@@ -110,6 +112,7 @@ export function provideConfig() {
     provide: AuthServiceConfig,
     useFactory: provideConfig
   }],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule { }

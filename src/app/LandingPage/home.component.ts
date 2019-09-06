@@ -22,6 +22,9 @@ export class HomeComponent implements OnInit {
   register() {
 this.router.navigateByUrl('register');
   }
+  onboarding() {
+    this.router.navigateByUrl('onboarding');
+      }
   ngOnInit() {
     document.getElementById('backBtn').style.display = 'none';     
 

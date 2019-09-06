@@ -9,6 +9,8 @@ import { EditProfileComponent } from '../../src/app/edit-profile/edit-profile.co
 import { ViewCentresComponent } from './view-centres/view-centres.component';
 import { GaurdService } from './Services/gaurd.service';
 import { ContactedUserProfileComponent } from './contacted-user-profile/contacted-user-profile.component';
+import { OnboardingComponent } from './onboarding/onboarding.component';
+
 const routes: Routes = [
   { path: '', pathMatch: 'full',component: HomeComponent },
   { path: 'home',redirectTo: '',  },
@@ -18,8 +20,8 @@ const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent, canActivate:[GaurdService]},
   { path: 'EditProfile', component: EditProfileComponent, canActivate:[GaurdService]},
   { path: 'viewCentres', component: ViewCentresComponent},
-  { path: 'contactedUserProfiles/:userId/:status', component:ContactedUserProfileComponent}
-
+  { path: 'contactedUserProfiles/:userId/:status', component:ContactedUserProfileComponent},
+  { path: 'onboarding', component: OnboardingComponent}
 ];
 
 @NgModule({

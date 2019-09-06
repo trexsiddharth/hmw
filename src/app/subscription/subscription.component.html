@@ -1,14 +1,7 @@
 <ng-container >
-    <div class="headers" >
-        <div class="row" id="headers-left">
-           <div id="headers-left-main">
-             <img src="../../../assets/images/logo.png" id="logo"> &nbsp; &nbsp;<p id="company-name">Our Plans</p>
-           </div>
-        </div>
-    </div>
-    <main id="main">
+    <main id="main" style="background-color:#f5f5f5; margin-top:-30px;">
         <main id="second-main">
-            <div class="header">
+            <div class="header" style="margin-top:10vh">
                 <div class="back-ground">
                   <div class="text-center">
                       <h5 >We Provide Convenient packages to choose From!</h5>
@@ -21,37 +14,37 @@
                     </div>
                 </div>
             </div>
-            <div class="row" id="plan-option">
-               <div class="col-sm-6 col-md-6 col-lg-6" id="button-div">
+            <div class="row" id="plan-option" style="text-align: center;">
+               <div class="col-sm-6 col-md-6 col-lg-6" id="button-div" style="margin: 10px 0px;">
                   <button type="button" class="btn btn-primary"  id="button">Online PLans</button>
                </div>
-               <div class="col-sm-6 col-md-6 col-lg-6" id="button-div">
+               <div class="col-sm-6 col-md-6 col-lg-6" id="button-div" style="margin: 10px 0px;">
                   <button type="button" class="btn btn-primary"  id="button">Personalised Plans</button>
                </div>
             </div>
           
             <div class="card-wrapper" *ngIf="show1">
       
-                <div id="option">
+                <div id="option" class="option">
                     <div id="contain">
-                        <div class="col-sm-3 col-md-3 col-lg-3 v-align">
+                        <div class="col-3">
                             <p class="feature">Limited</p>
                             <p id="p"><s>{{ plans?.Limited?.PrevAmt }}</s></p>
                             <p id="p">{{ plans?.Limited?.CurrentAmt }}</p> 
                         </div>
-                        <div class="col-sm-3 col-md-3 col-lg-3 v-align">
+                        <div class="col-3">
                             <p><span class="feature">Credits</span><br><span class="value" style="padding-top:10px">{{ plans?.Limited?.Credits}}</span></p>                 
                         </div>
-                        <div class="col-sm-3 col-md-3 col-lg-3 v-align">
+                        <div class="col-3">
                             <p><span class="feature">Validity</span><br><span class="value" style="padding-top:10px">{{ plans?.Limited?.Validity}}</span></p>      
                         </div>
-                        <div class="col-sm-3 col-md-3 col-lg-3 v-align">
+                        <div class="col-3">
                            <button type="button" class="btn btn-primary">Buy now</button>
                         </div>
                     </div>
                  </div>
 
-                 <div id="option">
+                 <div id="option" class="option">
                     <div id="contain">
                         <div class="col-sm-3 col-md-3 col-lg-3 v-align">
                             <p class="feature">Premium</p>
@@ -70,7 +63,7 @@
                     </div>
                  </div>
 
-                 <div id="option">
+                 <div id="option" class="option">
                     <div id="contain">
                         <div class="col-sm-3 col-md-3 col-lg-3 v-align">
                             <p class="feature">Supreme</p>
